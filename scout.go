@@ -81,7 +81,7 @@ func runCheck() {
 
 	// Network Info
 	nics := monitor.NetworkInterfaceInfo()
-	for nic := range nics {
+	for _, nic := range nics {
 		fmt.Printf("NIC:\n\t%v\n", nic)
 	}
 
@@ -122,7 +122,7 @@ func runCheck() {
 func send(data monitor.Device) {
 	json, _ := json.Marshal(data)
 	body := bytes.NewBuffer(json)
-	
+
 	for i := 0; i < attempts; i++ {
 		fmt.Printf("Posting: %v\n", string(json))
 		response, err := http.Post(dest, "application/json", body)
