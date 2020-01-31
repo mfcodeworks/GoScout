@@ -1,7 +1,6 @@
 # GoScout-Server-Monitor
 
-[![GitHub license](https://img.shields.io/github/license/mfsoftworks/GoScout-Server-Monitor.svg)](https://github.com/mfsoftworks/GoScout-Server-Monitor/blob/master/LICENSE.md) [![Build Status](https://travis-ci.com/mfsoftworks/GoScout-Server-Monitor.svg?branch=master)](https://travis-ci.com/mfsoftworks/GoScout-Server-Monitor)
-[![Code Coverage](https://codecov.io/gh/mfsoftworks/GoScout-Server-Monitor/branch/master/graphs/badge.svg)](https://codecov.io/gh/mfsoftworks/GoScout-Server-Monitor) ![GitHub Size](https://img.shields.io/github/repo-size/mfsoftworks/GoScout-Server-Monitor.svg)
+[![GitHub license](https://img.shields.io/github/license/mfsoftworks/GoScout-Server-Monitor.svg)](https://github.com/mfsoftworks/GoScout-Server-Monitor/blob/master/LICENSE.md)
 
 ## Purpose
 
