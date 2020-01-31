@@ -2,10 +2,12 @@ package monitor
 
 import (
 	"fmt"
-	"strings"
-	"time"
 	"net"
+	"time"
+	"bytes"
+	"strings"
 	"runtime"
+	"encoding/json"
     "github.com/shirou/gopsutil/host"
     "github.com/shirou/gopsutil/mem"
     "github.com/shirou/gopsutil/cpu"
@@ -47,6 +49,11 @@ type Device struct {
 	NetworkCards []Nic `json:"network_cards"`
 	Timestamp string `json:"timestamp"`
 	UUID string `json:"uuid"`
+}
+
+func (d *Device) ToJSON() *bytes.Buffer {
+	json, _ := json.Marshal(d)
+	return bytes.NewBuffer(json)
 }
 
 var hostinfo, _ = host.Info()

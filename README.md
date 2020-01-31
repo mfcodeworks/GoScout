@@ -4,7 +4,7 @@
 
 ## Purpose
 
-The executable, a port of [Server-Monitoring-Script](https://github.com/mfsoftworks/server-monitoring-script), is designed to be run as a cronjob on every boot to run in the background.
+The executable, a port of the Python [Server Monitoring Script](https://github.com/mfsoftworks/server-monitoring-script), is designed to be run as a cronjob on every boot to run in the background.
 The script will gather information:
 
 - UUID (Unique for each system to avoid overlapping hostname for multi-network monitoring)

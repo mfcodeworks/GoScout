@@ -3,10 +3,8 @@ package main
 import (
 	"fmt"
 	"flag"
-	"bytes"
 	"time"
 	"net/http"
-	"encoding/json"
 	"goscout/monitor"
 	"github.com/denisbrodbeck/machineid"
 )
@@ -38,21 +36,20 @@ func init() {
 	flag.IntVar(&timeout, "timeout", timeoutDefault, timeoutUsage)
 	flag.IntVar(&timeout, "t", timeoutDefault, "timeout (shorthand)")
 	flag.Parse()
+
+	// Adjust interval for bandwidth & cpu checking
+	interval -= 2
 }
 
 func main() {
-	// Adjust interval for bandwidth & cpu checking
-	adjustedDuration := interval-2
-
-	// DEBUG: Print begin string and parsed arguments
-	fmt.Println("Monitor Begin")
-	fmt.Printf("Args %v, %v, %v, %v\n", dest, interval, attempts, timeout)
+	// Print begin string and parsed arguments
+	fmt.Println("GoScout Begin")
 
 	// Run monitor on loop
 	for {
 		runCheck()
 		fmt.Println("-----------------------------------------------------------------")
-		time.Sleep(time.Duration(adjustedDuration) * time.Second)
+		time.Sleep(time.Duration(interval) * time.Second)
 	}
 }
 
@@ -120,12 +117,9 @@ func runCheck() {
 }
 
 func send(data monitor.Device) {
-	json, _ := json.Marshal(data)
-	body := bytes.NewBuffer(json)
-
 	for i := 0; i < attempts; i++ {
-		fmt.Printf("Posting: %v\n", string(json))
-		response, err := http.Post(dest, "application/json", body)
+		fmt.Printf("Posting: %v\n", data.ToJSON())
+		response, err := http.Post(dest, "application/json", data.ToJSON())
 		if err == nil && response.StatusCode == 200 {
 			fmt.Printf("\nPOST:\nResponse: %v\nHeaders: %v\nContent: %v\n", response.StatusCode, response.Header, response.Body)
 			return
