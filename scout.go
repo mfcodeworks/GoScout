@@ -5,7 +5,6 @@ import (
 	"flag"
 	"time"
 	"net/http"
-	"goscout/monitor"
 	"github.com/denisbrodbeck/machineid"
 )
 
@@ -47,54 +46,54 @@ func main() {
 
 	// Run monitor on loop
 	for {
-		runCheck()
+		monitor()
 		fmt.Println("-----------------------------------------------------------------")
 		time.Sleep(time.Duration(interval) * time.Second)
 	}
 }
 
-func runCheck() {
+func monitor() {
 	// Hostname info
-	hostname := monitor.Hostname()
+	hostname := Hostname()
 	fmt.Printf("Hostname: %v\n", hostname)
 
 	// CPU info
-	cpuCount, cpuUsage := monitor.CPUInfo()
+	cpuCount, cpuUsage := CPUInfo()
 	fmt.Printf("CPU:\n\tCount: %v\n\tUsage: %v\n", cpuCount, cpuUsage)
 
 	// Memory info
-	memoryTotal, memoryUsed, memoryUsedPercent := monitor.MemoryInfo()
+	memoryTotal, memoryUsed, memoryUsedPercent := MemoryInfo()
 	fmt.Printf("Memory:\n\tPercent: %v\n\tTotal: %v MB\n\tUsed: %v MB\n", memoryUsedPercent, memoryTotal / 1e+6, memoryUsed / 1e+6)
 
 	// Disk Info
-	disks := monitor.DiskInfo()
+	disks := DiskInfo()
 	for _, disk := range disks {
 		fmt.Printf("Disk:\n\tName: %v\n\tMount Point: %v\n\tType: %v\n\tSize: %v\n\tUsage: %v\n\tPercent Used: %v\n", disk.Name, disk.MountPoint, disk.Type, disk.TotalSize / 1e+9, disk.UsedSize / 1e+9, disk.PercentUsed)
 	}
 
 	// Bandwidth Info
-	networkDown, networkUp := monitor.NetworkBandwidthInfo()
+	networkDown, networkUp := NetworkBandwidthInfo()
 	fmt.Printf("Network:\n\tTraffic in: %v\n\tTraffic out: %v\n", networkDown / 1e+3, networkUp / 1e+3)
 
 	// Network Info
-	nics := monitor.NetworkInterfaceInfo()
+	nics := NetworkInterfaceInfo()
 	for _, nic := range nics {
 		fmt.Printf("NIC:\n\t%v\n", nic)
 	}
 
 	// Platform Info
-	system := monitor.OSInfo()
+	system := OSInfo()
 	fmt.Printf("OS:\n\t %v %v\n", system.Name, system.Version)
 
 	// Time Info
 	timestamp := time.Now().Format(time.RFC3339)
-	uptime := monitor.UptimeInfo()
+	uptime := UptimeInfo()
 	fmt.Printf("System Uptime: %v\nTimestamp: %v\n", uptime, timestamp)
 
 	// System UUID
 	fmt.Printf("UUID: %v\n", systemUUID)
 
-	device := monitor.Device{
+	device := Device{
 		Hostname: hostname,
 		System: system,
 		Uptime: uptime,
@@ -116,7 +115,7 @@ func runCheck() {
 	send(device)
 }
 
-func send(data monitor.Device) {
+func send(data Device) {
 	for i := 0; i < attempts; i++ {
 		fmt.Printf("Posting: %v\n", data.ToJSON())
 		response, err := http.Post(dest, "application/json", data.ToJSON())

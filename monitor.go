@@ -1,4 +1,4 @@
-package monitor
+package main
 
 import (
 	"fmt"
@@ -51,12 +51,12 @@ type Device struct {
 	UUID string `json:"uuid"`
 }
 
+var hostinfo, _ = host.Info()
+
 func (d *Device) ToJSON() *bytes.Buffer {
 	json, _ := json.Marshal(d)
 	return bytes.NewBuffer(json)
 }
-
-var hostinfo, _ = host.Info()
 
 func ipv4Mask(m []byte) (string) {
     if len(m) != 4 {
@@ -93,7 +93,6 @@ func CPUInfo() (int, float64) {
 }
 
 func MemoryInfo() (uint64, uint64, float64) {
-	// Memory info
 	memoryStats, _ := mem.VirtualMemory()
 	return memoryStats.Total, memoryStats.Used, memoryStats.UsedPercent
 }
