@@ -1,10 +1,11 @@
-# GoScout-Server-Monitor
+# GoScout
 
-[![GitHub license](https://img.shields.io/github/license/mfsoftworks/GoScout-Server-Monitor.svg)](https://github.com/mfsoftworks/GoScout-Server-Monitor/blob/master/LICENSE.md)
+[![GitHub license](https://img.shields.io/github/license/mfsoftworks/GoScout.svg)](https://github.com/mfsoftworks/GoScout/blob/master/LICENSE.md) [![Build Status](https://travis-ci.com/mfsoftworks/GoScout.svg?branch=master)](https://travis-ci.com/mfsoftworks/GoScout)
+[![Code Coverage](https://codecov.io/gh/mfsoftworks/GoScout/branch/master/graphs/badge.svg)](https://codecov.io/gh/mfsoftworks/GoScout) ![GitHub Size](https://img.shields.io/github/repo-size/mfsoftworks/GoScout.svg)
 
 ## Purpose
 
-The executable, a port of the Python [Server Monitoring Script](https://github.com/mfsoftworks/server-monitoring-script), is designed to be run as a cronjob on every boot to run in the background.
+The executable, a port of the Python [Server Monitoring Script](https://github.com/mfsoftworks/GoScout), is designed to be run as a cronjob on every boot to run in the background.
 The script will gather information:
 
 - UUID (Unique for each system to avoid overlapping hostname for multi-network monitoring)
@@ -83,7 +84,7 @@ The destination, checking interval, sending attempts after failure and timeout b
 
 ## Usage
 
-Download the latest [release](https://github.com/mfsoftworks/GoScout-Server-Monitor/releases).
+Download the latest [release](https://github.com/mfsoftworks/GoScout/releases/latest).
 
 To test the script output run with `goscout` or `goscout.exe` in the terminal.
 
